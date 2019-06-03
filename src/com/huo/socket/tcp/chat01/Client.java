@@ -1,55 +1,50 @@
-package com.huo.socket.tcp;
+package com.huo.socket.tcp.chat01;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
 /**
- * TCP的 server
- * 起了一个线程 负责 轮询 dips这个管道 监听别人发来的消息
+ * 起了一个线程 负责 轮询 dips这个管道
  *
  * @author huoguangyao
- * @date 2019/6/3 14:42
+ * @date 2019/6/3 14:53
  */
-public class Server {
+public class Client {
 
     private Socket socket = null;
     private DataInputStream dips = null;
 
 
-    private void serverRun() {
+    private void clientRun() {
         try {
-            ServerSocket ss = new ServerSocket(8888);
-            System.out.println("server start...");
-            socket = ss.accept();
-            dips = new DataInputStream(socket.getInputStream());
+            // 一个socket 就是一个端到端通信的 一个端点
+            socket = new Socket("127.0.0.1", 8888);
             DataOutputStream dops = new DataOutputStream(socket.getOutputStream());
+            dips = new DataInputStream(socket.getInputStream());
 
             new Thread(() -> {
-                while (true) {
-                    try {
+                try {
+                    while (true) {
                         String s = dips.readUTF();
                         System.out.println(s + new Date());
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
             }).start();
 
             while (true) {
                 InputStreamReader isr = new InputStreamReader(System.in);
                 BufferedReader br = new BufferedReader(isr);
-                dops.writeUTF("server:" + br.readLine());
+                dops.writeUTF("client:" + br.readLine());
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        new Server().serverRun();
+        new Client().clientRun();
     }
 }
