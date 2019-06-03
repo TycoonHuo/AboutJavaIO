@@ -1,14 +1,11 @@
 package com.huo.socket.udp;
 
-import javax.xml.crypto.Data;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
-import java.net.SocketException;
 
 /**
  * 体会ByteArray流的重要性

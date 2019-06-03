@@ -5,7 +5,6 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
 /**
  * udp 没有server client一说  这里是为了掩饰
