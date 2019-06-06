@@ -12,14 +12,13 @@ import java.util.Date;
  */
 public class Client {
 
-    private Socket socket = null;
     private DataInputStream dips = null;
 
 
     private void clientRun() {
         try {
             // 一个socket 就是一个端到端通信的 一个端点
-            socket = new Socket("127.0.0.1", 8888);
+            Socket socket = new Socket("127.0.0.1", 8888);
             DataOutputStream dops = new DataOutputStream(socket.getOutputStream());
             dips = new DataInputStream(socket.getInputStream());
 

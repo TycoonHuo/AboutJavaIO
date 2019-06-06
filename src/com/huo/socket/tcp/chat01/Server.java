@@ -14,20 +14,21 @@ import java.util.Date;
  */
 public class Server {
 
-    private Socket socket = null;
     private DataInputStream dips = null;
-
+    private Socket socket = null;
 
     private void serverRun() {
         try {
             ServerSocket ss = new ServerSocket(8888);
             System.out.println("server start...");
             socket = ss.accept();
+            System.out.println(socket);
             dips = new DataInputStream(socket.getInputStream());
             DataOutputStream dops = new DataOutputStream(socket.getOutputStream());
 
             new Thread(() -> {
                 while (true) {
+                    System.out.println(socket.isClosed());
                     try {
                         String s = dips.readUTF();
                         System.out.println(s + new Date());
